@@ -20,13 +20,18 @@ if (Meteor.isClient) {
       });
     }
     });
+
   Template.fridge.onRendered(function() {
     var templateInstance = this;
     
     templateInstance.$('#fridge').droppable ({
       drop: function (evt, ui){
-        var query = { _id: ui.draggrable.data('id')};
-        var changes = { $set: {place: 'fridge'}};
+        var query = { _id: ui.draggable.data('id')};
+        var changes = {
+          $set:{
+            place: 'fridge'
+            }
+            };
         Products.update(query, changes);
       }
     });
@@ -37,8 +42,14 @@ if (Meteor.isClient) {
     
     templateInstance.$('#supermarket').droppable ({
       drop: function (evt, ui){
-        var query = { _id: ui.draggrable.data('id') };
-        var changes = { $set: {place: 'supermarket' } };
+        var query = {
+          _id: ui.draggable.data('id')
+          };
+        var changes = {
+          $set: {
+            place: 'supermarket'
+            }
+            };
         Products.update(query, changes);
       }
     });
@@ -64,13 +75,25 @@ if (Meteor.isServer) {
     
     Products.insert ({
       name: 'Milk',
-      img:'/milk.jpg',
-      place: 'frigde'
+      img:'/milk.png',
+      place: 'fridge'
+    });
+    
+    Products.insert({
+      name: 'Banana',
+      img: '/banana.png',
+      place: 'supermarket'
+    });
+    
+    Products.insert({
+      name:'Juice',
+      img:'/juice.png',
+      place: 'fridge'
     });
     
     Products.insert({
       name: 'Bread',
-      img: '/bread.jpg',
+      img: '/bread.png',
       place: 'supermarket'
     });
   });
